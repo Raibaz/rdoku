@@ -1,6 +1,7 @@
 require 'grid'
 require 'fill_single_empty'
 require 'fill_from_exclusions'
+require 'fill_possible_place'
 
 class Solver
 
@@ -8,6 +9,7 @@ class Solver
 		@grid = grid
 		@single_empties = FillSingleEmpty.new(@grid.size)
 		@from_exclusions = FillFromExclusions.new(@grid)
+		@possible_places = FillPossiblePlace.new(@grid)
 	end
 
 	def solve		
@@ -26,6 +28,8 @@ class Solver
 			end
 
 			@from_exclusions.fill_grid
+
+			@possible_places.fill_grid
 
 			new_count = @grid.empty_cells.count
 			break if new_count >= empty_count

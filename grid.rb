@@ -1,7 +1,7 @@
 require 'cell'
 
 class Grid
-	attr_reader :size, :rows, :columns, :quadrants
+	attr_reader :size, :rows, :columns, :quadrants, :possible_values
 
 	def initialize(size = 9) 				
 		@size = size
@@ -10,12 +10,14 @@ class Grid
 		@quadrants = size
 		@grid = prepare_grid				
 		initialize_cells
-		@expected_sum = 1.upto(size).inject(0, :+)		
+		@expected_sum = 1.upto(size).inject(0, :+)			
 	end
 
 	def initialize_cells
 		each_cell do |cell|
 			cell.peers = (row(cell.row) + column(cell.column) + quadrant(cell.row, cell.column) - [cell]).uniq
+			cell.possible_values = 1.upto(size).to_a
+			cell
 		end
 	end	
 
