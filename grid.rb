@@ -165,19 +165,23 @@ class Grid
 	end
 
 	def to_s
-		puts "----" * @columns
+		out = ""
+		out << "----" * @columns
+		out << "\n"
 		each_row do | row |
-			print "|"
+			out << "|"
 			row.each do | cell |		
 				if(cell.value > 0)
-					print " #{cell.value} |" 
+					out << " #{cell.value} |" 
 				else
-					print "   |"
+					out << "   |"
 				end
 			end
-			puts
-			puts "----" * @columns
+			out << "\n"
+			out << "----" * @columns
+			out << "\n"
 		end		
+		out
 	end
 
 end
